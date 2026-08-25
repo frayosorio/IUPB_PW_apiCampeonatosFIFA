@@ -1,33 +1,12 @@
 package campeonatosfifa.api.dominio.entidades;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "campeonato")
 public class Campeonato {
 
-    @Column(name = "id")
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "secuencia_campeonato")
-    @SequenceGenerator(
-        name = "secuencia_campeonato",
-        sequenceName = "secuencia_campeonato",
-        allocationSize = 1
-    )
     private int id;
 
-    @Column(name = "campeonato", length = 50, unique = true, nullable = false)
     private String nombre;
 
-    @Column(name = "año", nullable = false)
     private int año;
-
 
     public Campeonato() {
     }

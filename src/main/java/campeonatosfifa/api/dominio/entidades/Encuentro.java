@@ -2,63 +2,28 @@ package campeonatosfifa.api.dominio.entidades;
 
 import java.time.LocalDate;
 
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
-import jakarta.persistence.SequenceGenerator;
-import jakarta.persistence.Table;
-
-@Entity
-@Table(name = "encuentro")
 public class Encuentro {
 
-    @Column(name = "id")
-    @Id
-    @GeneratedValue(strategy = GenerationType.AUTO, generator = "secuencia_encuentro")
-    @SequenceGenerator(
-        name = "secuencia_encuentro",
-        sequenceName = "secuencia_encuentro",
-        allocationSize = 1
-    )
     private int id;
 
-    @ManyToOne
-    @JoinColumn(name = "idpais1", referencedColumnName = "id", nullable = false)
     private Seleccion seleccion1;
 
-    @ManyToOne
-    @JoinColumn(name = "idpais2", referencedColumnName = "id", nullable = false)
     private Seleccion seleccion2;
 
-    @ManyToOne
-    @JoinColumn(name = "idfase", referencedColumnName = "id", nullable = false)
     private Fase fase;
 
-    @ManyToOne
-    @JoinColumn(name = "idcampeonato", referencedColumnName = "id", nullable = false)
     private Campeonato campeonato;
 
-    @ManyToOne
-    @JoinColumn(name = "idestadio", referencedColumnName = "id", nullable = false)
     private Estadio estadio;
 
-    @Column(name = "fecha")
     private LocalDate fecha;
 
-    @Column(name = "goles1")
     private int goles1;
 
-    @Column(name = "goles2")
     private int goles2;
 
-    @Column(name = "penales1")
     private int penales1;
 
-    @Column(name = "penales2")
     private int penales2;
 
     public Encuentro() {
