@@ -21,4 +21,5 @@ public interface IEstadioServicio {
     Estadio modificar(Estadio ciudad);
 
     boolean eliminar(int id);
+    
 }
