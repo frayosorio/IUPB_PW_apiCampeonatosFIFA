@@ -9,7 +9,7 @@ public class GrupoSeleccion {
     public GrupoSeleccion() {
     }
 
-    public GrupoSeleccion(Seleccion seleccion, Grupo grupo) {
+    public GrupoSeleccion(Grupo grupo, Seleccion seleccion) {
         this.seleccion = seleccion;
         this.grupo = grupo;
     }

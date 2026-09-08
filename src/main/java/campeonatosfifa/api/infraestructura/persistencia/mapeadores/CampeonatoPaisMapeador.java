@@ -14,12 +14,12 @@ public class CampeonatoPaisMapeador {
                 SeleccionMapeador.haciaDominio(entidad.getPais()));
     }
 
-    public static CampeonatoPaisEntidad haciaEntidad(CampeonatoPais campeonatopais) {
-        if (campeonatopais == null)
+    public static CampeonatoPaisEntidad haciaEntidad(CampeonatoPais campeonatoPais) {
+        if (campeonatoPais == null)
             return null;
         return new CampeonatoPaisEntidad(
-                CampeonatoMapeador.haciaEntidad(campeonatopais.getCampeonato()),
-                SeleccionMapeador.haciaEntidad(campeonatopais.getPais()));
+                CampeonatoMapeador.haciaEntidad(campeonatoPais.getCampeonato()),
+                SeleccionMapeador.haciaEntidad(campeonatoPais.getPais()));
     }
 
 }

@@ -23,7 +23,7 @@ public class GrupoSeleccionEntidad {
     public GrupoSeleccionEntidad() {
     }
 
-    public GrupoSeleccionEntidad(SeleccionEntidad seleccion, GrupoEntidad grupo) {
+    public GrupoSeleccionEntidad(GrupoEntidad grupo, SeleccionEntidad seleccion) {
         this.seleccion = seleccion;
         this.grupo = grupo;
     }
