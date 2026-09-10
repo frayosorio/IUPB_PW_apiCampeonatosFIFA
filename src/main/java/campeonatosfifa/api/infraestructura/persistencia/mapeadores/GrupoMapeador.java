@@ -21,7 +21,7 @@ public class GrupoMapeador {
         return new GrupoEntidad(
                 grupo.getId(),
                 grupo.getNombre(),
-                CampeonatoMapeador.haciaEntidad(grupo.getCampeonato()),
+                CampeonatoMapeador.haciaEntidad(grupo.getCampeonato())
             );
     }
 }
