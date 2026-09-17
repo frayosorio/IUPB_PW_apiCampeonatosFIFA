@@ -4,9 +4,11 @@ import java.util.List;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
 
 import campeonatosfifa.api.infraestructura.persistencia.entidades.EncuentroEntidad;
 
+@Repository
 public interface IEncuentroRepositorioJpa extends JpaRepository<EncuentroEntidad, Integer>{
 
     @Query("SELECT e FROM EncuentroEntidad e WHERE e.campeonato.id = ?1 ORDER BY e.fecha")
@@ -22,7 +24,7 @@ public interface IEncuentroRepositorioJpa extends JpaRepository<EncuentroEntidad
                 " AND (gs.seleccion.id = e.seleccion1.id OR gs.seleccion.id = e.seleccion2.id)" + 
                 " WHERE e.fase.id = 2" + 
                 " AND g.id = ?1" + 
-                " ORDER BY fecha")
+                " ORDER BY e.fecha")
     List<EncuentroEntidad> listarPorGrupo(int idGrupo);
 
 }

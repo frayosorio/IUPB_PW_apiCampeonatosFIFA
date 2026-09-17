@@ -8,9 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 
 import campeonatosfifa.api.core.repositorios.IGrupoRepositorio;
 import campeonatosfifa.api.dominio.entidades.Grupo;
-import campeonatosfifa.api.infraestructura.persistencia.entidades.EncuentroEntidad;
 import campeonatosfifa.api.infraestructura.persistencia.entidades.GrupoEntidad;
-import campeonatosfifa.api.infraestructura.persistencia.mapeadores.EncuentroMapeador;
 import campeonatosfifa.api.infraestructura.persistencia.mapeadores.GrupoMapeador;
 import campeonatosfifa.api.infraestructura.persistencia.repositorios.jpa.IGrupoRepositorioJpa;
 
