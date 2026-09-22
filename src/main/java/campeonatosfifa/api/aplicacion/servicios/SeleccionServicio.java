@@ -9,11 +9,11 @@ import campeonatosfifa.api.core.repositorios.ISeleccionRepositorio;
 import campeonatosfifa.api.core.servicios.ISeleccionServicio;
 import campeonatosfifa.api.dominio.entidades.Seleccion;
 
-@Service 
-public class SeleccionServicio implements  ISeleccionServicio{
+@Service
+public class SeleccionServicio implements ISeleccionServicio {
 
-    @Autowired 
-    private ISeleccionRepositorio repositorio;
+	@Autowired
+	private ISeleccionRepositorio repositorio;
 
 	@Override
 	public List<Seleccion> listar() {
@@ -22,34 +22,30 @@ public class SeleccionServicio implements  ISeleccionServicio{
 
 	@Override
 	public Seleccion obtener(int id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'obtener'");
+		var seleccionEncontrada = repositorio.obtenerPorId(id);
+		return seleccionEncontrada.isEmpty() ? null :seleccionEncontrada.get();
 	}
 
 	@Override
 	public List<Seleccion> buscar(String nombre) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'buscar'");
+		return repositorio.buscarPorNombre(nombre);
 	}
 
 	@Override
 	public Seleccion agregar(Seleccion seleccion) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'agregar'");
+		seleccion.setId(0);
+		return repositorio.guardar(seleccion);
 	}
 
 	@Override
 	public Seleccion modificar(Seleccion seleccion) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'modificar'");
+		var seleccionEncontrada = repositorio.obtenerPorId(seleccion.getId());
+		return seleccionEncontrada.isEmpty() ? null : repositorio.guardar(seleccion);
 	}
 
 	@Override
 	public boolean eliminar(int id) {
-		// TODO Auto-generated method stub
-		throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+		return repositorio.eliminar(id);
 	}
-
-
 
 }

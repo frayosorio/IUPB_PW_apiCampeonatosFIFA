@@ -10,6 +10,9 @@ import org.springframework.stereotype.Component;
 import campeonatosfifa.api.core.repositorios.ISeleccionRepositorio;
 import campeonatosfifa.api.dominio.entidades.Seleccion;
 import campeonatosfifa.api.infraestructura.persistencia.repositorios.jpa.ISeleccionRepositorioJpa;
+import campeonatosfifa.api.infraestructura.persistencia.entidades.CampeonatoEntidad;
+import campeonatosfifa.api.infraestructura.persistencia.entidades.SeleccionEntidad;
+import campeonatosfifa.api.infraestructura.persistencia.mapeadores.CampeonatoMapeador;
 import campeonatosfifa.api.infraestructura.persistencia.mapeadores.SeleccionMapeador;
 
 @Component
@@ -28,26 +31,36 @@ public class SeleccionRepositorio implements ISeleccionRepositorio {
 
     @Override
     public Optional<Seleccion> obtenerPorId(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'obtenerPorId'");
+       return repositorio.findById(id)
+                .map(SeleccionMapeador::haciaDominio);
     }
 
     @Override
     public List<Seleccion> buscarPorNombre(String nombre) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'buscarPorNombre'");
+        return repositorio.findByNombreContaining(nombre)
+                .stream()
+                .map(SeleccionMapeador::haciaDominio)
+                .collect(Collectors.toList());
     }
 
     @Override
     public Seleccion guardar(Seleccion seleccion) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'guardar'");
+        SeleccionEntidad entidad = SeleccionMapeador.haciaEntidad(seleccion);
+        SeleccionEntidad entidadGuardada = repositorio.save(entidad);
+        return SeleccionMapeador.haciaDominio(entidadGuardada);
     }
 
     @Override
     public boolean eliminar(int id) {
-        // TODO Auto-generated method stub
-        throw new UnsupportedOperationException("Unimplemented method 'eliminar'");
+        try {
+            if (repositorio.existsById(id)) {
+                repositorio.deleteById(id);
+                return true;
+            }
+            return false;
+        } catch (Exception ex) {
+            return false;
+        }
     }
 
 }
