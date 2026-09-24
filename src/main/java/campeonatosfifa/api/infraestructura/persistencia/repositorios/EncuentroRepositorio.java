@@ -5,6 +5,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import campeonatosfifa.api.core.repositorios.IEncuentroRepositorio;
 import campeonatosfifa.api.dominio.entidades.Encuentro;
@@ -12,6 +13,7 @@ import campeonatosfifa.api.infraestructura.persistencia.entidades.EncuentroEntid
 import campeonatosfifa.api.infraestructura.persistencia.mapeadores.EncuentroMapeador;
 import campeonatosfifa.api.infraestructura.persistencia.repositorios.jpa.IEncuentroRepositorioJpa;
 
+@Component
 public class EncuentroRepositorio implements IEncuentroRepositorio {
 
     @Autowired
