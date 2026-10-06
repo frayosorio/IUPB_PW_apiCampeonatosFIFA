@@ -24,9 +24,9 @@ public interface ICampeonatoServicio {
 
     List<CampeonatoPais> listarPaises(int idCampeonato);
 
-    Optional<CampeonatoPais> obtenerPais(int idCampeonato, int idPais);
+    CampeonatoPais obtenerPais(int idCampeonato, int idPais);
 
-    CampeonatoPais agregarPais(CampeonatoPais campeonatoPais);
+    CampeonatoPais agregarPais(int idCampeonato, int idPais);
 
     CampeonatoPais modificarPais(CampeonatoPais campeonatoPais);
 

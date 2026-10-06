@@ -10,7 +10,9 @@ import campeonatosfifa.api.core.repositorios.IGrupoSeleccionRepositorio;
 import campeonatosfifa.api.dominio.entidades.GrupoSeleccion;
 import campeonatosfifa.api.infraestructura.persistencia.mapeadores.GrupoSeleccionMapeador;
 import campeonatosfifa.api.infraestructura.persistencia.repositorios.jpa.IGrupoSeleccionRepositorioJpa;
+import org.springframework.stereotype.Component;
 
+@Component
 public class GrupoSeleccionRepositorio implements IGrupoSeleccionRepositorio {
 
     @Autowired 
