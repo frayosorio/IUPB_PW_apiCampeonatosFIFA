@@ -1,7 +1,6 @@
 package campeonatosfifa.api.core.servicios;
 
 import java.util.List;
-import java.util.Optional;
 
 import campeonatosfifa.api.dominio.entidades.Campeonato;
 import campeonatosfifa.api.dominio.entidades.CampeonatoPais;
@@ -28,7 +27,7 @@ public interface ICampeonatoServicio {
 
     CampeonatoPais agregarPais(int idCampeonato, int idPais);
 
-    CampeonatoPais modificarPais(CampeonatoPais campeonatoPais);
+    CampeonatoPais modificarPais(int idCampeonato, int idPaisActual, int idPaisNuevo);
 
     boolean eliminarPais(int idCampeonato, int idPais);
 }

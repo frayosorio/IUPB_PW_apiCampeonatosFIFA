@@ -3,6 +3,7 @@ package campeonatosfifa.api.core.servicios;
 import java.util.List;
 import java.util.Optional;
 
+import campeonatosfifa.api.dominio.dtos.TablaPosicionesDto;
 import campeonatosfifa.api.dominio.entidades.Grupo;
 import campeonatosfifa.api.dominio.entidades.GrupoSeleccion;
 
@@ -10,7 +11,7 @@ public interface IGrupoServicio {
 
     List<Grupo> listarPorCampeonato(int idCampeonato);
 
-    Optional<Grupo> obtener(int id);
+    Grupo obtener(int id);
 
     Grupo agregar(Grupo grupo);
 
@@ -22,12 +23,18 @@ public interface IGrupoServicio {
 
     List<GrupoSeleccion> listarSelecciones(int idGrupo);
 
-    Optional<GrupoSeleccion> obtenerSeleccion(int idGrupo, int idSeleccion);
+    GrupoSeleccion obtenerSeleccion(int idGrupo, int idSeleccion);
 
-    GrupoSeleccion agregarSeleccion(GrupoSeleccion grupoSeleccion);
+    GrupoSeleccion agregarSeleccion(int idGrupo, int idSeleccion);
 
-    GrupoSeleccion modificarSeleccion(GrupoSeleccion grupoSeleccion);
+    GrupoSeleccion modificarSeleccion(int idCampeonato, int idPaisActual, int idPaisNuevo);
 
     boolean eliminarSeleccion(int idGrupo, int idSeleccion);
+
+    // ***** Tabla de posiciones *****
+
+    public List<TablaPosicionesDto> listarTablaPosiciones(int idGrupo);
+
+    public void generarEncuentrosSiguienteFaseGrupos(int idGrupo1, int idGrupo2, int idFase);
 
 }

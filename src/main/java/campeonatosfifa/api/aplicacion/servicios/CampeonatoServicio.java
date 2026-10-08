@@ -1,7 +1,6 @@
 package campeonatosfifa.api.aplicacion.servicios;
 
 import java.util.List;
-import java.util.Optional;
 
 import campeonatosfifa.api.core.repositorios.ICampeonatoPaisRepositorio;
 import campeonatosfifa.api.core.repositorios.ICampeonatoRepositorio;
@@ -22,6 +21,8 @@ public class CampeonatoServicio implements ICampeonatoServicio {
                               ICampeonatoPaisRepositorio repositorioCampeonatoPais,
                               ISeleccionRepositorio repositorioPais) {
         this.repositorio = repositorio;
+        this.repositorioCampeonatoPais = repositorioCampeonatoPais;
+        this.repositorioPais = repositorioPais;
     }
 
     @Override
@@ -57,6 +58,7 @@ public class CampeonatoServicio implements ICampeonatoServicio {
         return repositorio.eliminar(id);
     }
 
+    // ***** Paises Organizadores *****
     @Override
     public List<CampeonatoPais> listarPaises(int idCampeonato) {
         return repositorioCampeonatoPais.listarPaises(idCampeonato);
@@ -70,23 +72,37 @@ public class CampeonatoServicio implements ICampeonatoServicio {
 
     @Override
     public CampeonatoPais agregarPais(int idCampeonato, int idPais) {
-        var campeonatoPais = repositorioCampeonatoPais.obtenerPorId(idCampeonato, idPais);
         var campeonato = repositorio.obtenerPorId(idCampeonato);
         var pais = repositorioPais.obtenerPorId(idPais);
-        if(campeonato.isEmpty() || pais.isEmpty()){
+        if (campeonato.isEmpty() || pais.isEmpty()) {
             return null;
         }
+        var campeonatoPais = repositorioCampeonatoPais.obtenerPorId(idCampeonato, idPais);
         return campeonatoPais.isEmpty() ? repositorioCampeonatoPais.guardar(new CampeonatoPais(campeonato.get(), pais.get())) : null;
     }
 
     @Override
-    public CampeonatoPais modificarPais(CampeonatoPais campeonatoPais) {
-        return null;
+    public CampeonatoPais modificarPais(int idCampeonato, int idPaisActual, int idPaisNuevo) {
+        var campeonato = repositorio.obtenerPorId(idCampeonato);
+        var nuevoPais = repositorioPais.obtenerPorId(idPaisNuevo);
+
+        if (campeonato.isEmpty() || nuevoPais.isEmpty()) {
+            return null;
+        }
+
+        // Verificar que existe la relación actual que se quiere modificar
+        var campeonatoPaisExistente = repositorioCampeonatoPais.obtenerPorId(idCampeonato, idPaisActual);
+        if (campeonatoPaisExistente.isEmpty()) {
+            return null; // No existe la relación original
+        }
+
+        repositorioCampeonatoPais.eliminar(idCampeonato, idPaisActual);
+        return repositorioCampeonatoPais.guardar(new CampeonatoPais(campeonato.get(), nuevoPais.get()));
     }
 
     @Override
     public boolean eliminarPais(int idCampeonato, int idPais) {
-        return false;
+        return repositorioCampeonatoPais.eliminar(idCampeonato, idPais);
     }
 
 }
