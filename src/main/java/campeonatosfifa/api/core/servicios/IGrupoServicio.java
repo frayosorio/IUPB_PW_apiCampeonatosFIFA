@@ -33,8 +33,7 @@ public interface IGrupoServicio {
 
     // ***** Tabla de posiciones *****
 
-    public List<TablaPosicionesDto> listarTablaPosiciones(int idGrupo);
+    List<TablaPosicionesDto> listarTablaPosiciones(int idGrupo);
 
-    public void generarEncuentrosSiguienteFaseGrupos(int idGrupo1, int idGrupo2, int idFase);
 
 }
