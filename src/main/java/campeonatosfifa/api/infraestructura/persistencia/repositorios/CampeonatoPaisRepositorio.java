@@ -24,7 +24,7 @@ public class CampeonatoPaisRepositorio implements ICampeonatoPaisRepositorio {
 
     @Override
     public List<CampeonatoPais> listarPaises(int idCampeonato) {
-        return repositorio.findAll()
+        return repositorio.listarPaises(idCampeonato)
                 .stream()
                 .map(CampeonatoPaisMapeador::haciaDominio)
                 .collect(Collectors.toList());

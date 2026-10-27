@@ -4,6 +4,7 @@ package campeonatosfifa.api.presentacion.controladores;
 import campeonatosfifa.api.core.servicios.IGrupoServicio;
 import campeonatosfifa.api.dominio.dtos.TablaPosicionesDto;
 import campeonatosfifa.api.dominio.entidades.Grupo;
+import campeonatosfifa.api.dominio.entidades.GrupoSeleccion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,32 +26,73 @@ public class GrupoControlador {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Grupo> obtener(@PathVariable int id) {
-        var grupoBuscada = servicio.obtener(id);
-        if (grupoBuscada == null) {
+        var grupoBuscado = servicio.obtener(id);
+        if (grupoBuscado == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(grupoBuscada);
+        return ResponseEntity.ok(grupoBuscado);
     }
 
     @PostMapping
     public ResponseEntity<Grupo> agregar(@RequestBody Grupo grupo) {
-        var grupoCreada = servicio.agregar(grupo);
+        var grupoCreado = servicio.agregar(grupo);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(grupoCreada);
+                .body(grupoCreado);
     }
 
     @PutMapping
     public ResponseEntity<Grupo> modificar(@RequestBody Grupo grupo) {
-        var grupoModificada = servicio.modificar(grupo);
-        if (grupoModificada == null) {
+        var grupoModificado = servicio.modificar(grupo);
+        if (grupoModificado == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(grupoModificada);
+        return ResponseEntity.ok(grupoModificado);
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> eliminar(@PathVariable int id) {
         boolean respuesta = servicio.eliminar(id);
+        if (!respuesta) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.noContent().build();
+    }
+
+    // ***** Selecciones del Grupo *****
+
+    @GetMapping(value = "/selecciones/{id}")
+    public ResponseEntity<List<GrupoSeleccion>> listarSelecciones(@PathVariable int id) {
+        return ResponseEntity.ok(servicio.listarSelecciones(id));
+    }
+
+    @GetMapping(value = "/selecciones/obtener/{idGrupo}/{idSeleccion}")
+    public ResponseEntity<GrupoSeleccion> obtenerSeleccion(@PathVariable int idGrupo, @PathVariable int idSeleccion) {
+        var grupoSeleccionBuscado = servicio.obtenerSeleccion(idGrupo, idSeleccion);
+        if (grupoSeleccionBuscado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(grupoSeleccionBuscado);
+    }
+
+    @PostMapping(value = "/selecciones/{idGrupo}/{idSeleccion}")
+    public ResponseEntity<GrupoSeleccion> agregarSeleccion(int idGrupo, int idSeleccion) {
+        var grupoSeleccionCreado = servicio.agregarSeleccion(idGrupo, idSeleccion);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(grupoSeleccionCreado);
+    }
+
+    @PutMapping(value = "/selecciones/{idGrupo}/{idSeleccionActual}/{idSeleccionNueva}")
+    public ResponseEntity<GrupoSeleccion> modificarSeleccion(@PathVariable int idGrupo, @PathVariable int idSeleccionActual, @PathVariable int idSeleccionNueva) {
+        var grupoSeleccionModificado = servicio.modificarSeleccion(idGrupo, idSeleccionActual, idSeleccionNueva);
+        if (grupoSeleccionModificado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(grupoSeleccionModificado);
+    }
+
+    @DeleteMapping(value = "/paises/{idGrupo}/{idSeleccion}")
+    public ResponseEntity<Void> eliminarSeleccion(@PathVariable int idGrupo, @PathVariable int idSeleccion) {
+        boolean respuesta = servicio.eliminarSeleccion(idGrupo, idSeleccion);
         if (!respuesta) {
             return ResponseEntity.status(HttpStatus.CONFLICT).build();
         }

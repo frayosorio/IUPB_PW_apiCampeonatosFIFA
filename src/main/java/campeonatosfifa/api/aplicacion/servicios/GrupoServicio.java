@@ -83,27 +83,27 @@ public class GrupoServicio implements IGrupoServicio {
     }
 
     @Override
-    public GrupoSeleccion modificarSeleccion(int idGrupo, int idPaisActual, int idPaisNuevo) {
+    public GrupoSeleccion modificarSeleccion(int idGrupo, int idSeleccionActual, int idSeleccionNueva) {
         var grupo = repositorio.obtenerPorId(idGrupo);
-        var nuevoPais = repositorioSelecciones.obtenerPorId(idPaisNuevo);
+        var nuevoPais = repositorioSelecciones.obtenerPorId(idSeleccionNueva);
 
         if (grupo.isEmpty() || nuevoPais.isEmpty()) {
             return null;
         }
 
         // Verificar que existe la relación actual que se quiere modificar
-        var grupoSeleccionExistente = repositorioGrupoSelecciones.obtenerPorId(idGrupo, idPaisActual);
+        var grupoSeleccionExistente = repositorioGrupoSelecciones.obtenerPorId(idGrupo, idSeleccionActual);
         if (grupoSeleccionExistente.isEmpty()) {
             return null; // No existe la relación original
         }
 
-        repositorioGrupoSelecciones.eliminar(idGrupo, idPaisActual);
+        repositorioGrupoSelecciones.eliminar(idGrupo, idSeleccionActual);
         return repositorioGrupoSelecciones.guardar(new GrupoSeleccion(grupo.get(), nuevoPais.get()));
     }
 
     @Override
-    public boolean eliminarSeleccion(int idGrupo, int idPais) {
-        return repositorioGrupoSelecciones.eliminar(idGrupo, idPais);
+    public boolean eliminarSeleccion(int idGrupo, int idSeleccion) {
+        return repositorioGrupoSelecciones.eliminar(idGrupo, idSeleccion);
     }
 
     // ***** Tabla de Posiciones *****

@@ -2,6 +2,7 @@ package campeonatosfifa.api.presentacion.controladores;
 
 import java.util.List;
 
+import campeonatosfifa.api.dominio.entidades.Encuentro;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -15,7 +16,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import campeonatosfifa.api.core.servicios.IEncuentroServicio;
-import campeonatosfifa.api.dominio.entidades.Encuentro;
 
 @RestController
 @RequestMapping("/api/encuentros")
@@ -30,10 +30,10 @@ public class EncuentroControlador {
         return ResponseEntity.ok(lista);
     }
 
-    @GetMapping(value = "/campeonatofase/{idCampeonato}/{idFase}")
-    public ResponseEntity<List<Encuentro>> listarPorCampeonatoYFase(@PathVariable int idCampeonato,
-            @PathVariable int idFase) {
-        var lista = servicio.listarPorCampeonatoYFase(idCampeonato, idFase);
+    @GetMapping(value = "/campeonatofase/{idCampeonato}/{idEncuentro}")
+    public ResponseEntity<List<Encuentro>> listarPorCampeonatoYEncuentro(@PathVariable int idCampeonato,
+            @PathVariable int idEncuentro) {
+        var lista = servicio.listarPorCampeonatoYFase(idCampeonato, idEncuentro);
         return ResponseEntity.ok(lista);
     }
 
@@ -43,4 +43,28 @@ public class EncuentroControlador {
         return ResponseEntity.ok(lista);
     }
 
+    @PostMapping
+    public ResponseEntity<Encuentro> agregar(@RequestBody Encuentro encuentro) {
+        var encuentroCreado = servicio.agregar(encuentro);
+        return ResponseEntity.status(HttpStatus.CREATED)
+                .body(encuentroCreado);
+    }
+
+    @PutMapping
+    public ResponseEntity<Encuentro> modificar(@RequestBody Encuentro encuentro) {
+        var encuentroModificado = servicio.modificar(encuentro);
+        if (encuentroModificado == null) {
+            return ResponseEntity.notFound().build();
+        }
+        return ResponseEntity.ok(encuentroModificado);
+    }
+
+    @DeleteMapping(value = "/{id}")
+    public ResponseEntity<Void> eliminar(@PathVariable int id) {
+        boolean respuesta = servicio.eliminar(id);
+        if (!respuesta) {
+            return ResponseEntity.status(HttpStatus.CONFLICT).build();
+        }
+        return ResponseEntity.noContent().build();
+    }
 }

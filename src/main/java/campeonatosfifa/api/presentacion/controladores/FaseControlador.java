@@ -23,11 +23,11 @@ public class FaseControlador {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Fase> obtener(@PathVariable int id) {
-        var seleccionBuscada = servicio.obtener(id);
-        if (seleccionBuscada == null) {
+        var faseBuscada = servicio.obtener(id);
+        if (faseBuscada == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(seleccionBuscada);
+        return ResponseEntity.ok(faseBuscada);
     }
 
     @GetMapping(value = "/buscar/{nombre}")
@@ -36,19 +36,19 @@ public class FaseControlador {
     }
 
     @PostMapping
-    public ResponseEntity<Fase> agregar(@RequestBody Fase seleccion) {
-        var seleccionCreada = servicio.agregar(seleccion);
+    public ResponseEntity<Fase> agregar(@RequestBody Fase fase) {
+        var faseCreada = servicio.agregar(fase);
         return ResponseEntity.status(HttpStatus.CREATED)
-                .body(seleccionCreada);
+                .body(faseCreada);
     }
 
     @PutMapping
-    public ResponseEntity<Fase> modificar(@RequestBody Fase seleccion) {
-        var seleccionModificada = servicio.modificar(seleccion);
-        if (seleccionModificada == null) {
+    public ResponseEntity<Fase> modificar(@RequestBody Fase fase) {
+        var faseModificada = servicio.modificar(fase);
+        if (faseModificada == null) {
             return ResponseEntity.notFound().build();
         }
-        return ResponseEntity.ok(seleccionModificada);
+        return ResponseEntity.ok(faseModificada);
     }
 
     @DeleteMapping(value = "/{id}")
