@@ -5,6 +5,7 @@ import campeonatosfifa.api.dominio.entidades.Ciudad;
 import campeonatosfifa.api.infraestructura.persistencia.entidades.CiudadEntidad;
 import campeonatosfifa.api.infraestructura.persistencia.mapeadores.CiudadMapeador;
 import campeonatosfifa.api.infraestructura.persistencia.repositorios.jpa.ICiudadRepositorioJpa;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -14,6 +15,7 @@ import java.util.stream.Collectors;
 @Component
 public class CiudadRepositorio implements ICiudadRepositorio {
 
+    @Autowired
     private ICiudadRepositorioJpa repositorio;
 
     @Override
