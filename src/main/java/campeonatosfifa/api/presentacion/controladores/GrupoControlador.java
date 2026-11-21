@@ -20,7 +20,7 @@ public class GrupoControlador {
     private IGrupoServicio servicio;
 
     @GetMapping(value = "/campeonato/{idCampeonato}")
-    public ResponseEntity<List<Grupo>> listarPorCampeonato(int idCampeonato) {
+    public ResponseEntity<List<Grupo>> listarPorCampeonato(@PathVariable int idCampeonato) {
         return ResponseEntity.ok(servicio.listarPorCampeonato(idCampeonato));
     }
 
